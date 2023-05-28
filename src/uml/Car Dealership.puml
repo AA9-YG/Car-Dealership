@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface CarDAO {
+    +void addCar()
+    +void updateCar()
+    +void deleteCar()
+    +Car getCar()
+    +List<Car> getAllCars()
+}
+
+class CarDAOImpl implements CarDAO {
+    -connection : Connection
+}
+
+class Car {
+    -stock : int
+    -model : String
+    -price : double
+    -year : int
+    +int getStock()
+    +void setStock()
+    +String getModel()
+    +void setModel()
+    +double getPrice()
+    +void setPrice()
+    +int getYear()
+    +void setYear()
+    +String toString()
+}
+
+class CarDealership {
+    -{static} carDAO : CarDAO
+    +{static} void main()
+    -{static} void getAllCars()
+    -{static} void getCarByID()
+    -{static} void deleteCar()
+    -{static} void updateCar()
+    -{static} void addCar()
+}
+
+class JDBCConnection {
+    -{static} DB_URL : String
+    -{static} USERNAME : String
+    -{static} PASSWORD : String
+    +{static} Connection getConnection()
+    +{static} void closeConnection()
+}
+
+CarDealership o-- CarDAO : Aggregation
+CarDealership ..> JDBCConnection : Dependency
+CarDAO ..> Car : Dependency
+
+
+@enduml
