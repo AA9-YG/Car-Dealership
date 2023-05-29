@@ -50,7 +50,7 @@ class JDBCConnection {
 CarDealership o-- CarDAO : Aggregation
 CarDealership ..> JDBCConnection : Dependency
 CarDAO ..> Car : Dependency
-CarDealership ..> Car : Dependencys
+CarDealership ..> Car : Dependency
 
 
 @enduml
