@@ -34,9 +34,10 @@ class CarDealership {
     +{static} void main()
     -{static} void getAllCars()
     -{static} void getCarByID()
-    -{static} void deleteCar()
-    -{static} void updateCar()
-    -{static} void addCar()
+    -{static} void buyCar()
+    -{static} void modifyCar()
+    -{static} void sellCar()
+    -{static} void todaysOffer()
 }
 
 class JDBCConnection {

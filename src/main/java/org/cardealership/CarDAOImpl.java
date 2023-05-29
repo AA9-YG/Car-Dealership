@@ -47,8 +47,8 @@ public class CarDAOImpl implements CarDAO{
             );
 
             statement.setString(1, car.getModel());
-            statement.setInt(2, car.getYear());
-            statement.setDouble(3, car.getPrice());
+            statement.setDouble(2, car.getPrice());
+            statement.setInt(3, car.getYear());
             statement.setInt(4, car.getStock());
 
             // Execute SQL statement
@@ -61,12 +61,13 @@ public class CarDAOImpl implements CarDAO{
     }
 
     @Override
-    public void deleteCar(int stock) {
+    public void deleteCar(String model, int year) {
         try {
 
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM cars WHERE stock =?;");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM cars WHERE model =? AND yearOfCar=? LIMIT 1;");
 
-            statement.setInt(1, stock);
+            statement.setString(1, model);
+            statement.setInt(2, year);
 
             statement.executeUpdate();
             statement.close();
@@ -93,6 +94,36 @@ public class CarDAOImpl implements CarDAO{
                 double price = resultSet.getDouble("price");
 
                 car = new Car(stockNum, model, price, year);
+
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return car;
+    }
+
+    @Override
+    public Car getCar(String model, int year) {
+
+        Car car = null;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cars WHERE model=? AND yearOfCar=?;");
+            statement.setString(1, model);
+            statement.setInt(2, year);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int stockNum = resultSet.getInt("stock");
+                String model2 = resultSet.getString("model");
+                int year2 = resultSet.getInt("yearOfCar");
+                double price = resultSet.getDouble("price");
+
+                car = new Car(stockNum, model2, price, year);
 
             }
 

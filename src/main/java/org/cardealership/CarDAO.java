@@ -8,9 +8,11 @@ public interface CarDAO {
 
     void updateCar(Car car);
 
-    void deleteCar(int stock);
+    void deleteCar(String model, int year);
 
     Car getCar(int stock);
+
+    Car getCar(String model, int year);
 
     List<Car> getAllCars();
 
