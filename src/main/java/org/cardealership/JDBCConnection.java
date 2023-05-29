@@ -17,7 +17,7 @@ public class JDBCConnection {
 
         Connection connection = null;
 
-        // Load the JDBC Driver
+        // Load the JDBC Driver 1
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
